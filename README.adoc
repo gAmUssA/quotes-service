@@ -1,0 +1,30 @@
+= Using Kong Ingress Controller (KIC) for Kubernetes
+Viktor Gamov
+v0.1, 2021-06-06
+:toc:
+:homepage: http://konghq.com
+
+This is WIP demo based on https://konghq.com/blog/kubernetes-ingress-api-gateway[blogpost].
+It generates random quotes (courtesy of http://dius.github.io/java-faker/[Java Faker library]) as rest call response.
+
+[source,shell]
+.the commands for demo
+----
+gcloud container clusters create my-kong-kic --num-nodes 3 --machine-type n1-standard-1 --zone us-east1-c	#<1>
+
+./gradlew bootBuildImage --imageName gamussa/reactive-quote-service:0.0.2-SNAPSHOT #<2>
+
+docker push gamussa/reactive-quote-service:0.0.2-SNAPSHOT   #<3>
+
+docker run -d -p 8080:8080 gamussa/reactive-quote-service:0.0.2-SNAPSHOT    #<4>
+
+kubectl create -f https://bit.ly/k4k8s      #<5>
+
+kubectl apply -f ./kubernetes       #<6>
+----
+<1> Create Kubernetes cluster in GCP.
+<2> Build an image.
+<3> Push an image to Docker Hub.
+<4> Run microservice app locally. 
+<5> Install KIC.
+<6> Deploy apps, services, ingress.

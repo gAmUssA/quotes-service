@@ -1,0 +1,58 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.dekorate.io/vcs-url: <<unknown>>
+  labels:
+    app.kubernetes.io/name: reactive-quote-service
+    app.kubernetes.io/version: 0.0.2-SNAPSHOT
+  name: reactive-quote-service
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/name: reactive-quote-service
+    app.kubernetes.io/version: 0.0.2-SNAPSHOT
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.dekorate.io/vcs-url: <<unknown>>
+  labels:
+    app.kubernetes.io/version: 0.0.2-SNAPSHOT
+    app.kubernetes.io/name: reactive-quote-service
+  name: reactive-quote-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/version: 0.0.2-SNAPSHOT
+      app.kubernetes.io/name: reactive-quote-service
+  template:
+    metadata:
+      annotations:
+        app.dekorate.io/vcs-url: <<unknown>>
+      labels:
+        app.kubernetes.io/version: 0.0.2-SNAPSHOT
+        app.kubernetes.io/name: reactive-quote-service
+    spec:
+      containers:
+        - env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: QUOTE_SERVICE
+              value: backToFuture
+          image: gamussa/reactive-quote-service:0.0.2-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          name: reactive-quote-service
+          ports:
+            - containerPort: 8080
+              name: web
+              protocol: TCP
