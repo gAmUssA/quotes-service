@@ -15,7 +15,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: reactive-quote-service
+                name: back2future-quote-service
                 port:
                   number: 80
           - path: /chuck
