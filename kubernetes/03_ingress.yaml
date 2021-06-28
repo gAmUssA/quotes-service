@@ -2,7 +2,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: quote-services
-  namespace: default
   annotations:
     # this important https://docs.konghq.com/kubernetes-ingress-controller/1.3.x/references/annotations/#konghqcomstrip-path
     konghq.com/strip-path: "true"
