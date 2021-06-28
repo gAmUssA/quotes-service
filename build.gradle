@@ -18,7 +18,7 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-webflux'
   implementation "com.github.javafaker:javafaker:1.0.2"
   implementation "io.dekorate:kubernetes-spring-starter:2.1.4"
-  annotationProcessor "io.dekorate:kubernetes-annotations:2.1.4"
+  annotationProcessor "io.dekorate:kubernetes-annotations:2.2.2"
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'io.projectreactor:reactor-test'
