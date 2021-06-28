@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package io.kong.developer.quoteservice;
+
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "io.kong.developer.quoteservice";
+
+service QuoteService {
+
+  rpc GetQuote(google.protobuf.Empty) returns (QuoteMessage) ;
+
+}
+
+message QuoteMessage{
+  string message = 1;
+}

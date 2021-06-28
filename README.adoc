@@ -12,19 +12,21 @@ It generates random quotes (courtesy of http://dius.github.io/java-faker/[Java F
 ----
 gcloud container clusters create my-kong-kic --num-nodes 3 --machine-type n1-standard-1 --zone us-east1-c   #<1>
 
-./gradlew bootBuildImage --imageName gamussa/reactive-quote-service:0.0.2    #<2>
+./gradlew bootBuildImage --imageName gamussa/reactive-quote-service:0.0.3-SNAPSHOT    #<2>
 
-docker push gamussa/reactive-quote-service:0.0.2   #<3>
+docker push gamussa/reactive-quote-service:0.0.3-SNAPSHOT   #<3>
 
-docker run -d -p 8080:8080 gamussa/reactive-quote-service:0.0.2    #<4>
+docker run -d -p 8080:8080 gamussa/reactive-quote-service:0.0.3-SNAPSHOT    #<4>
+docker run -d -p 6565:6565 -e GRPC_ENABLED=true gamussa/reactive-quote-service:0.0.3-SNAPSHOT    #<5>
 
-kubectl create -f https://bit.ly/k4k8s      #<5>
+kubectl create -f https://bit.ly/k4k8s      #<6>
 
-kubectl apply -f ./kubernetes       #<6>
+kubectl apply -f ./kubernetes       #<7>
 ----
 <1> Create Kubernetes cluster in GCP.
 <2> Build an image.
 <3> Push an image to Docker Hub.
 <4> Run microservice app locally. 
-<5> Install KIC.
-<6> Deploy apps, services, ingress.
+<5> Run gRPC service locally.
+<6> Install KIC.
+<7> Deploy apps, services, ingress.

@@ -1,13 +1,21 @@
 plugins {
-  id 'org.springframework.boot' version '2.5.0'
+  id 'org.springframework.boot' version '2.5.2'
   id 'io.spring.dependency-management' version '1.0.11.RELEASE'
   id 'java'
+  id 'idea'
   //id 'org.springframework.experimental.aot' version '0.10.0-SNAPSHOT'
   id 'net.researchgate.release' version '2.8.1'
+  id "com.google.protobuf" version "0.8.13"
 }
 
 group = 'io.kong.developer'
 sourceCompatibility = '11'
+
+configurations {
+  compileOnly {
+    extendsFrom annotationProcessor
+  }
+}
 
 repositories {
   maven { url 'https://repo.spring.io/snapshot' }
@@ -17,8 +25,15 @@ repositories {
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-webflux'
   implementation "com.github.javafaker:javafaker:1.0.2"
-  implementation "io.dekorate:kubernetes-spring-starter:2.1.4"
-  annotationProcessor "io.dekorate:kubernetes-annotations:2.1.4"
+  implementation "io.dekorate:kubernetes-spring-starter:2.2.2"
+  annotationProcessor "io.dekorate:kubernetes-annotations:2.2.2"
+
+  compileOnly 'org.projectlombok:lombok'
+  annotationProcessor 'org.projectlombok:lombok'
+
+  //grpc stuff
+  implementation 'io.github.lognet:grpc-spring-boot-starter:4.2.2'
+  implementation "com.google.protobuf:protobuf-java:3.12.4"
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
   testImplementation 'io.projectreactor:reactor-test'
@@ -39,4 +54,36 @@ release {
   git {
     requireBranch = 'main'
   }
+}
+
+protobuf {
+
+  //generatedFilesBaseDir = "$buildDir/generated-main-proto-java"
+
+  // Configure the protoc executable
+  protoc {
+    // Download from repositories
+    artifact = 'com.google.protobuf:protoc:3.12.4'
+  }
+  plugins {
+    grpc {
+      artifact = 'io.grpc:protoc-gen-grpc-java:1.33.1'
+    }
+  }
+  generateProtoTasks {
+    all()*.plugins { grpc {} }
+  }
+}
+
+sourceSets {
+  main {
+    java {
+      srcDirs 'build/generated/source/proto/main/grpc'
+      srcDirs 'build/generated/source/proto/main/java'
+    }
+  }
+}
+
+springBoot {
+  buildInfo()
 }
