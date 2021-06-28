@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: chuck
+  name: quote-services
   annotations:
     # this important https://docs.konghq.com/kubernetes-ingress-controller/1.3.x/references/annotations/#konghqcomstrip-path
     konghq.com/strip-path: "true"
@@ -14,7 +14,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: reactive-quote-service
+                name: back2future-quote-service
                 port:
                   number: 80
           - path: /chuck

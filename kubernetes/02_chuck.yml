@@ -6,7 +6,7 @@ metadata:
     app.dekorate.io/vcs-url: <<unknown>>
   labels:
     app.kubernetes.io/name: chuck-quote-service
-    app.kubernetes.io/version: 0.0.2-SNAPSHOT
+    app.kubernetes.io/version: 0.0.2
   name: chuck-quote-service
 spec:
   ports:
@@ -15,7 +15,7 @@ spec:
       targetPort: 8080
   selector:
     app.kubernetes.io/name: chuck-quote-service
-    app.kubernetes.io/version: 0.0.2-SNAPSHOT
+    app.kubernetes.io/version: 0.0.2
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -23,21 +23,21 @@ metadata:
   annotations:
     app.dekorate.io/vcs-url: <<unknown>>
   labels:
-    app.kubernetes.io/version: 0.0.2-SNAPSHOT
+    app.kubernetes.io/version: 0.0.2
     app.kubernetes.io/name: chuck-quote-service
   name: chuck-quote-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/version: 0.0.2-SNAPSHOT
+      app.kubernetes.io/version: 0.0.2
       app.kubernetes.io/name: chuck-quote-service
   template:
     metadata:
       annotations:
         app.dekorate.io/vcs-url: <<unknown>>
       labels:
-        app.kubernetes.io/version: 0.0.2-SNAPSHOT
+        app.kubernetes.io/version: 0.0.2
         app.kubernetes.io/name: chuck-quote-service
     spec:
       containers:
@@ -48,7 +48,7 @@ spec:
                   fieldPath: metadata.namespace
             - name: QUOTE_SERVICE
               value: CHUCK
-          image: gamussa/reactive-quote-service:0.0.2-SNAPSHOT
+          image: gamussa/reactive-quote-service:0.0.2
           imagePullPolicy: IfNotPresent
           name: chuck-quote-service
           ports:

@@ -3,10 +3,10 @@ plugins {
   id 'io.spring.dependency-management' version '1.0.11.RELEASE'
   id 'java'
   //id 'org.springframework.experimental.aot' version '0.10.0-SNAPSHOT'
+  id 'net.researchgate.release' version '2.8.1'
 }
 
 group = 'io.kong.developer'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
@@ -28,10 +28,15 @@ test {
   useJUnitPlatform()
 }
 
-
 /*
 bootBuildImage {
   builder = 'paketobuildpacks/builder:tiny'
   environment = ['BP_NATIVE_IMAGE': 'true']
 }
 */
+
+release {
+  git {
+    requireBranch = 'main'
+  }
+}

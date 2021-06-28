@@ -5,17 +5,17 @@ metadata:
   annotations:
     app.dekorate.io/vcs-url: <<unknown>>
   labels:
-    app.kubernetes.io/name: reactive-quote-service
-    app.kubernetes.io/version: 0.0.2-SNAPSHOT
-  name: reactive-quote-service
+    app.kubernetes.io/name: back2future-quote-service
+    app.kubernetes.io/version: 0.0.2
+  name: back2future-quote-service
 spec:
   ports:
     - name: web
       port: 80
       targetPort: 8080
   selector:
-    app.kubernetes.io/name: reactive-quote-service
-    app.kubernetes.io/version: 0.0.2-SNAPSHOT
+    app.kubernetes.io/name: back2future-quote-service
+    app.kubernetes.io/version: 0.0.2
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -24,22 +24,22 @@ metadata:
   annotations:
     app.dekorate.io/vcs-url: <<unknown>>
   labels:
-    app.kubernetes.io/version: 0.0.2-SNAPSHOT
-    app.kubernetes.io/name: reactive-quote-service
-  name: reactive-quote-service
+    app.kubernetes.io/version: 0.0.2
+    app.kubernetes.io/name: back2future-quote-service
+  name: back2future-quote-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/version: 0.0.2-SNAPSHOT
-      app.kubernetes.io/name: reactive-quote-service
+      app.kubernetes.io/version: 0.0.2
+      app.kubernetes.io/name: back2future-quote-service
   template:
     metadata:
       annotations:
         app.dekorate.io/vcs-url: <<unknown>>
       labels:
-        app.kubernetes.io/version: 0.0.2-SNAPSHOT
-        app.kubernetes.io/name: reactive-quote-service
+        app.kubernetes.io/version: 0.0.2
+        app.kubernetes.io/name: back2future-quote-service
     spec:
       containers:
         - env:
@@ -49,9 +49,9 @@ spec:
                   fieldPath: metadata.namespace
             - name: QUOTE_SERVICE
               value: backToFuture
-          image: gamussa/reactive-quote-service:0.0.2-SNAPSHOT
+          image: gamussa/reactive-quote-service:0.0.2
           imagePullPolicy: IfNotPresent
-          name: reactive-quote-service
+          name: back2future-quote-service
           ports:
             - containerPort: 8080
               name: web
