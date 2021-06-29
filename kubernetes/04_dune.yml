@@ -4,46 +4,40 @@ kind: Service
 metadata:
   annotations:
     konghq.com/protocol: grpcs
-  labels:
-    app.kubernetes.io/name: dune-quote-service
-    app.kubernetes.io/version: 0.0.3-SNAPSHOT
   name: dune-quote-service
+  labels:
+    app: dune-quote-service
 spec:
-  type: NodePort
   ports:
     - name: grpc
-      port: 6565
-      targetPort: 6565
+      port: 9001
+      targetPort: 9001
   selector:
-    app.kubernetes.io/name: dune-quote-service
-    app.kubernetes.io/version: 0.0.3-SNAPSHOT
+    app: dune-quote-service
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app.kubernetes.io/version: 0.0.3-SNAPSHOT
-    app.kubernetes.io/name: dune-quote-service
   name: dune-quote-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/version: 0.0.3-SNAPSHOT
-      app.kubernetes.io/name: dune-quote-service
+      app: dune-quote-service
   template:
     metadata:
       labels:
-        app.kubernetes.io/version: 0.0.3-SNAPSHOT
-        app.kubernetes.io/name: dune-quote-service
+        app: dune-quote-service
     spec:
       containers:
         - image: gamussa/reactive-quote-service:0.0.3-SNAPSHOT
           imagePullPolicy: Always
           name: dune-quote-service
           ports:
-            - containerPort: 6565
+            - containerPort: 9001
           env:
+            - name: GRPC_SERVER_PORT
+              value: "9001"
             - name: GRPC_SERVER_SECURITY_ENABLED
               value: "true"
             - name: GRPC_SERVER_SECURITY_CERTIFICATECHAIN
@@ -68,8 +62,9 @@ kind: Ingress
 metadata:
   name: dune-quote-service
   annotations:
-    konghq.com/protocols: "grpc,grpcs"
+    konghq.com/protocols: grpc,grpcs
 spec:
+  ingressClassName: kong
   rules:
     - http:
         paths:
@@ -79,4 +74,4 @@ spec:
               service:
                 name: dune-quote-service
                 port:
-                  number: 6565
+                  number: 9001
