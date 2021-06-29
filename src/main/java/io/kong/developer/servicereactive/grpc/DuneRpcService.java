@@ -4,7 +4,8 @@ import com.google.protobuf.Empty;
 
 import com.github.javafaker.Faker;
 
-import org.lognet.springboot.grpc.GRpcService;
+import net.devh.boot.grpc.server.service.GrpcService;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 import io.grpc.stub.StreamObserver;
@@ -12,7 +13,7 @@ import io.kong.developer.quoteservice.QuoteMessage;
 import io.kong.developer.quoteservice.QuoteServiceGrpc;
 import lombok.RequiredArgsConstructor;
 
-@GRpcService
+@GrpcService
 @RequiredArgsConstructor
 public class DuneRpcService extends QuoteServiceGrpc.QuoteServiceImplBase {
   
