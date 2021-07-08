@@ -6,7 +6,7 @@ metadata:
   annotations:
     konghq.com/strip-path: "true"
     kubernetes.io/ingress.class: kong
-    #konghq.com/plugins: httpbin-free-tier
+    # konghq.com/plugins: rate-free-tier
 spec:
   rules:
     - http:

@@ -5,6 +5,7 @@ metadata:
   annotations:
     konghq.com/strip-path: "true"
     kubernetes.io/ingress.class: kong
+    # konghq.com/plugins: user1-auth,rate-paid-tier,platinum-paid-tier
 spec:
   rules:
     - http:
