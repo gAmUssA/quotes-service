@@ -1,0 +1,75 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: "2021-06-28T17:54:58Z"
+  generation: 1
+  name: kongconsumers.configuration.konghq.com
+  resourceVersion: "7050"
+  selfLink: /apis/apiextensions.k8s.io/v1/customresourcedefinitions/kongconsumers.configuration.konghq.com
+  uid: 0111fc9c-11e0-4ab3-88b6-6e5655ede82b
+spec:
+  conversion:
+    strategy: None
+  group: configuration.konghq.com
+  names:
+    kind: KongConsumer
+    listKind: KongConsumerList
+    plural: kongconsumers
+    shortNames:
+    - kc
+    singular: kongconsumer
+  preserveUnknownFields: true
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: Username of a Kong Consumer
+      jsonPath: .username
+      name: Username
+      type: string
+    - description: Age
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
+    schema:
+      openAPIV3Schema:
+        properties:
+          credentials:
+            items:
+              type: string
+            type: array
+          custom_id:
+            type: string
+          username:
+            type: string
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: KongConsumer
+    listKind: KongConsumerList
+    plural: kongconsumers
+    shortNames:
+    - kc
+    singular: kongconsumer
+  conditions:
+  - lastTransitionTime: "2021-06-28T17:54:58Z"
+    message: 'spec.versions[0].schema.openAPIV3Schema.type: Required value: must not
+      be empty at the root'
+    reason: Violations
+    status: "True"
+    type: NonStructuralSchema
+  - lastTransitionTime: "2021-06-28T17:54:58Z"
+    message: no conflicts found
+    reason: NoConflicts
+    status: "True"
+    type: NamesAccepted
+  - lastTransitionTime: "2021-06-28T17:54:58Z"
+    message: the initial names have been accepted
+    reason: InitialNamesAccepted
+    status: "True"
+    type: Established
+  storedVersions:
+  - v1
