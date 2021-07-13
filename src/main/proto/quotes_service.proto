@@ -10,6 +10,8 @@ option java_package = "io.kong.developer.quoteservice";
 service QuoteService {
 
   rpc GetQuote(google.protobuf.Empty) returns (QuoteMessage) ;
+  
+  rpc GetQuoteStream(google.protobuf.Empty) returns (stream QuoteMessage) ;
 
 }
 
