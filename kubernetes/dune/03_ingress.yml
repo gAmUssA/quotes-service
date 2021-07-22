@@ -5,10 +5,17 @@ metadata:
   name: dune-quote-service
   annotations:
     konghq.com/protocols: grpc,grpcs
+    kubernetes.io/ingress.class: kong
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  ingressClassName: kong
+  tls:
+    - secretName: kong.gamov.dev
+      hosts:
+        - kong.gamov.dev
   rules:
-    - http:
+    - host: kong.gamov.dev
+      http:
         paths:
           - path: /
             pathType: ImplementationSpecific

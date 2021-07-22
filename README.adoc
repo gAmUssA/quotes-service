@@ -33,13 +33,25 @@ kubectl apply -f ./kubernetes       #<7>
 
 == running grpc service
 
-[source]
-.filename
+[source,bash]
+.grpcSecrets.sh
 ----
 openssl req -x509 -nodes -subj "/CN=gamov.dev" -newkey rsa:4096 -sha256 -keyout server.key -out server.crt -days 3650
 
 kubectl create secret generic grpc-cert-chain --from-file=server.crt=server.crt
 kubectl create secret generic grpc-pk --from-file=server.key=server.key
 ----
+
+[source]
+.scratch
+----
+ k create secret generic quotes-apikey --from-literal=kongCredType=key-auth --from-literal=key=secret-key #<1>
+
+export PROXY_IP=`kgs --namespace kong kong-proxy -ojson | jq -r '.status.loadBalancer.ingress[0].ip'`   #<2>
+----
+<1> create API key
+<2> get external IP
+
+
 
 
