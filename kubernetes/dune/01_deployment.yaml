@@ -14,7 +14,7 @@ spec:
         app: dune-quote-service
     spec:
       containers:
-        - image: gamussa/reactive-quote-service:0.0.3-SNAPSHOT
+        - image: gamussa/reactive-quote-service:0.0.3
           imagePullPolicy: Always
           name: dune-quote-service
           ports:
